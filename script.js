@@ -1,8 +1,6 @@
 const $ = (s) => document.querySelector(s);
 const partyButton = $('#partyButton');
-const photoInput = $('#photoInput');
 const gallery = $('#gallery');
-const uploadZone = $('.upload-zone');
 const toast = $('#toast');
 let toastTimer;
 function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2600)}
@@ -11,9 +9,14 @@ partyButton.addEventListener('click',()=>{celebrate();showToast('PARTY MODE: ACT
 $('#wishConfetti').addEventListener('click',()=>{celebrate(110);showToast('Wish sent to the universe 💫')});
 const predictions=['A spontaneous plan will become a core memory. 💃','Your next chapter comes with plot twists—in the best way. ✨','More laughter, more love, and at least one excellent meal await. 🍰','A little courage will open a very good door. 🚪','Your people are going to remind you how loved you are. 💗','Main-character energy: unusually high this year. 🪩','A tiny surprise is going to make a big day. 🎁','The universe says: say yes to the fun thing. 🎈'];
 let last=-1;$('#wishButton').addEventListener('click',()=>{let n;do{n=Math.floor(Math.random()*predictions.length)}while(n===last);last=n;$('#prediction').textContent=predictions[n];celebrate(18)});
-photoInput.addEventListener('change',e=>addPhotos(e.target.files));
-function addPhotos(files){const images=[...files].filter(f=>f.type.startsWith('image/'));if(!images.length)return;gallery.querySelectorAll('.photo-placeholder').forEach(el=>el.remove());images.forEach(file=>{const url=URL.createObjectURL(file);const card=document.createElement('div');card.className='photo-card';const img=document.createElement('img');img.src=url;img.alt=file.name.replace(/\.[^.]+$/,'')||'Birthday memory';const label=document.createElement('div');label.className='photo-label';label.textContent=file.name.replace(/\.[^.]+$/,'')||'A lovely memory';const remove=document.createElement('button');remove.className='remove-photo';remove.type='button';remove.setAttribute('aria-label','Remove photo');remove.textContent='×';remove.addEventListener('click',()=>{URL.revokeObjectURL(url);card.remove();if(!gallery.children.length)restorePlaceholders()});card.append(img,label,remove);gallery.append(card)});showToast(`${images.length} memory${images.length===1?'':'ies'} added 💗`);photoInput.value=''}
-function restorePlaceholders(){gallery.innerHTML='<div class="photo-placeholder placeholder-one"><span>📷</span><strong>Bestie energy</strong><small>your photo goes here</small></div><div class="photo-placeholder placeholder-two"><span>🌷</span><strong>Core memory</strong><small>add a favourite moment</small></div><div class="photo-placeholder placeholder-three"><span>🪩</span><strong>Main character</strong><small>the iconic one</small></div>'}
-['dragenter','dragover'].forEach(type=>uploadZone.addEventListener(type,e=>{e.preventDefault();uploadZone.classList.add('dragging')}));['dragleave','drop'].forEach(type=>uploadZone.addEventListener(type,e=>{e.preventDefault();uploadZone.classList.remove('dragging')}));uploadZone.addEventListener('drop',e=>addPhotos(e.dataTransfer.files));
+// Tap/click a memory to open a full-screen photo viewer.
+const lightbox = $('#lightbox');
+const lightboxImage = lightbox.querySelector('img');
+function closeLightbox(){lightbox.hidden=true;document.body.style.overflow=''}
+gallery.addEventListener('click',e=>{const card=e.target.closest('.photo-card');if(!card||e.target.closest('.remove-photo'))return;const img=card.querySelector('img');if(!img)return;lightboxImage.src=img.src;lightboxImage.alt=img.alt;lightbox.hidden=false;document.body.style.overflow='hidden'});
+lightbox.querySelector('.lightbox-close').addEventListener('click',closeLightbox);
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!lightbox.hidden)closeLightbox()});
+
 // A cheerful sound button uses the browser's built-in tone generator; no audio files needed.
 let audioContext=null;$('#musicButton').addEventListener('click',async()=>{try{audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)();if(audioContext.state==='suspended')await audioContext.resume();const now=audioContext.currentTime;[523.25,659.25,783.99,1046.5].forEach((freq,i)=>{const osc=audioContext.createOscillator();const gain=audioContext.createGain();osc.type='sine';osc.frequency.value=freq;gain.gain.setValueAtTime(.0001,now+i*.16);gain.gain.exponentialRampToValueAtTime(.12,now+i*.16+.025);gain.gain.exponentialRampToValueAtTime(.0001,now+i*.16+.3);osc.connect(gain);gain.connect(audioContext.destination);osc.start(now+i*.16);osc.stop(now+i*.16+.32)});showToast('A tiny birthday fanfare, just for you 🎶')}catch(e){showToast('Your browser kept the music quiet — party anyway! 🎉')}});
