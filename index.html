@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fff0f5" />
+  <title>Happy Birthday, Anuradha! 🎂</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="sparkle-field" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#top">🎀 a little birthday magic</a>
+    <button id="musicButton" class="music-button" type="button" aria-pressed="false">♫ Make some noise</button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="pill">✨ TODAY IS ALL ABOUT YOU ✨</div>
+      <p class="eyebrow">cue the confetti...</p>
+      <h1>Happy Birthday,<br><span>Anuradha!</span></h1>
+      <p class="hero-copy">A tiny corner of the internet, made just to celebrate <strong>you</strong>. 💗</p>
+      <button id="partyButton" class="party-button" type="button">🎉 Start the party</button>
+      <div class="scroll-note">↓ keep scrolling for the good stuff ↓</div>
+      <div class="floating f1">🎈</div><div class="floating f2">💖</div><div class="floating f3">⭐</div><div class="floating f4">🎂</div>
+    </section>
+
+    <section class="note-card section-wrap">
+      <div class="sticker">💌</div>
+      <p class="section-kicker">A LITTLE BIRTHDAY NOTE</p>
+      <h2>Hope your day feels<br>like your favourite song.</h2>
+      <p class="note-text">May this next trip around the sun bring you belly laughs, unexpected happy moments, people who make you feel loved, and a ridiculous amount of cake. Keep being wonderfully, unmistakably you.</p>
+      <p class="signoff">Big smiles & birthday wishes, <span>♡</span></p>
+    </section>
+
+    <section class="memories section-wrap" id="memories">
+      <p class="section-kicker">THE ANURADHA ARCHIVES</p>
+      <h2>Proof that you're iconic 📸</h2>
+      <p class="section-sub">Add your favourite photos below — the silly ones are mandatory (emotionally, not legally).</p>
+      <label class="upload-zone" for="photoInput">
+        <span class="upload-icon">＋</span>
+        <strong>Drop memories here</strong>
+        <span>or click to choose photos from your device</span>
+        <small>They stay in your browser; nothing gets uploaded anywhere.</small>
+      </label>
+      <input id="photoInput" type="file" accept="image/*" multiple hidden />
+      <div id="gallery" class="gallery" aria-live="polite">
+        <div class="photo-placeholder placeholder-one"><span>📷</span><strong>Bestie energy</strong><small>your photo goes here</small></div>
+        <div class="photo-placeholder placeholder-two"><span>🌷</span><strong>Core memory</strong><small>add a favourite moment</small></div>
+        <div class="photo-placeholder placeholder-three"><span>🪩</span><strong>Main character</strong><small>the iconic one</small></div>
+      </div>
+      <p class="gallery-tip">Tip: choose several photos at once. Refreshing the page clears previews, so keep your originals safe!</p>
+    </section>
+
+    <section class="wishes section-wrap">
+      <div class="wish-emoji">🔮</div>
+      <p class="section-kicker">YOUR NEXT CHAPTER</p>
+      <h2>Birthday predictions</h2>
+      <p id="prediction" class="prediction">Tap below to reveal what the universe has planned…</p>
+      <button id="wishButton" class="secondary-button" type="button">Reveal my birthday fortune ✨</button>
+    </section>
+
+    <section class="finale">
+      <div class="cake">🎂</div>
+      <h2>One last thing...</h2>
+      <p>Make a wish, Anuradha. The universe is listening. 💫</p>
+      <button id="wishConfetti" class="party-button" type="button">I made a wish! 💖</button>
+      <p class="tiny-love">made with an unreasonable amount of love ♡</p>
+    </section>
+  </main>
+  <footer>HAPPY BIRTHDAY, ANURADHA · <span>✦</span> THE WORLD IS LUCKY TO HAVE YOU <span>✦</span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
